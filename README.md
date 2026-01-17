@@ -160,26 +160,83 @@ id|tanggal|items|total|kasir
 TRX001|2026-01-17 14:30:00|[{"product_id":1,"nama":"Indomie","qty":2,"harga":3500,"subtotal":7000}]|7000|admin
 ```
 
-## Screenshot
+## Screenshots
 
 ### Dashboard
 
-- Statistik pendapatan harian
-- Jumlah transaksi
-- Total produk
+Halaman utama yang menampilkan ringkasan statistik bisnis.
+
+![Dashboard](docs/screenshots/dashboard.png)
+
+**Fitur:**
+
+- Statistik pendapatan hari ini
+- Jumlah transaksi hari ini
+- Total produk tersedia
 - Alert stok rendah
+- Quick action buttons
+- Ringkasan total keseluruhan
 
-### Kasir (POS)
+---
 
-- Grid produk untuk dipilih
-- Keranjang belanja
+### Kasir (Point of Sale)
+
+Interface untuk memproses transaksi penjualan.
+
+![Point of Sale](docs/screenshots/pos.png)
+
+**Fitur:**
+
+- Grid produk dengan harga dan stok
+- Keranjang belanja interaktif
+- Kalkulasi total otomatis
 - Proses checkout
 
-### Manajemen Produk
+---
 
-- Tabel daftar produk
-- Form tambah/edit produk
-- Indikator stok
+### Daftar Produk
+
+Halaman untuk melihat dan mengelola semua produk.
+
+![Daftar Produk](docs/screenshots/products.png)
+
+**Fitur:**
+
+- Tabel daftar produk lengkap
+- Informasi ID, nama, harga, stok, tanggal dibuat
+- Indikator warna stok (hijau/kuning/merah)
+- Tombol edit dan hapus
+- Pencarian produk
+
+---
+
+### Tambah Produk
+
+Form untuk menambahkan produk baru.
+
+![Tambah Produk](docs/screenshots/add_product.png)
+
+**Fitur:**
+
+- Input nama produk
+- Input harga
+- Input stok awal
+- Validasi form
+
+---
+
+### Laporan Transaksi
+
+Riwayat semua transaksi penjualan.
+
+![Laporan Transaksi](docs/screenshots/transactions.png)
+
+**Fitur:**
+
+- Ringkasan total transaksi dan pendapatan
+- Tabel riwayat transaksi
+- Filter berdasarkan tanggal
+- Detail transaksi
 
 ## Development
 
