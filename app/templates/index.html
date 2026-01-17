@@ -1,0 +1,115 @@
+{% extends "base.html" %} {% block title %}Dashboard - POS System{% endblock %}
+{% block content %}
+<div class="dashboard">
+  <h1><i data-lucide="bar-chart-3"></i> Dashboard</h1>
+
+  <!-- Stats Cards -->
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-icon"><i data-lucide="banknote"></i></div>
+      <div class="stat-content">
+        <h3>Pendapatan Hari Ini</h3>
+        <p class="stat-value">
+          Rp {{ "{:,.0f}".format(stats.today.total_revenue) }}
+        </p>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon"><i data-lucide="receipt"></i></div>
+      <div class="stat-content">
+        <h3>Transaksi Hari Ini</h3>
+        <p class="stat-value">{{ stats.today.total_transactions }}</p>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon"><i data-lucide="package"></i></div>
+      <div class="stat-content">
+        <h3>Total Produk</h3>
+        <p class="stat-value">{{ stats.total_products }}</p>
+      </div>
+    </div>
+
+    <div class="stat-card {% if stats.low_stock_count > 0 %}warning{% endif %}">
+      <div class="stat-icon"><i data-lucide="alert-triangle"></i></div>
+      <div class="stat-content">
+        <h3>Stok Rendah</h3>
+        <p class="stat-value">{{ stats.low_stock_count }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick Actions -->
+  <div class="section">
+    <h2><i data-lucide="zap"></i> Aksi Cepat</h2>
+    <div class="action-buttons">
+      <a href="/pos" class="btn btn-primary btn-lg">
+        <i data-lucide="credit-card"></i> Buka Kasir
+      </a>
+      <a href="/products/add" class="btn btn-secondary btn-lg">
+        <i data-lucide="plus"></i> Tambah Produk
+      </a>
+      <a href="/transactions" class="btn btn-outline btn-lg">
+        <i data-lucide="clipboard-list"></i> Lihat Laporan
+      </a>
+    </div>
+  </div>
+
+  <!-- Low Stock Alert -->
+  {% if stats.low_stock_products %}
+  <div class="section">
+    <h2><i data-lucide="alert-triangle"></i> Produk Stok Rendah</h2>
+    <div class="table-container">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nama Produk</th>
+            <th>Stok</th>
+            <th>Aksi</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for product in stats.low_stock_products %}
+          <tr class="warning-row">
+            <td>{{ product.id }}</td>
+            <td>{{ product.nama }}</td>
+            <td><span class="badge badge-warning">{{ product.stok }}</span></td>
+            <td>
+              <a href="/products/{{ product.id }}/edit" class="btn btn-sm"
+                >Edit</a
+              >
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  {% endif %}
+
+  <!-- Summary Stats -->
+  <div class="section">
+    <h2><i data-lucide="trending-up"></i> Ringkasan Total</h2>
+    <div class="summary-grid">
+      <div class="summary-item">
+        <span class="summary-label">Total Transaksi (Semua)</span>
+        <span class="summary-value"
+          >{{ stats.total_transactions_all_time }}</span
+        >
+      </div>
+      <div class="summary-item">
+        <span class="summary-label">Total Pendapatan (Semua)</span>
+        <span class="summary-value"
+          >Rp {{ "{:,.0f}".format(stats.total_revenue_all_time) }}</span
+        >
+      </div>
+      <div class="summary-item">
+        <span class="summary-label">Item Terjual Hari Ini</span>
+        <span class="summary-value">{{ stats.today.items_sold }}</span>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

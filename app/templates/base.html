@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}POS System{% endblock %}</title>
+    <link rel="stylesheet" href="/static/style.css" />
+    <script src="https://unpkg.com/lucide@latest"></script>
+    {% block extra_css %}{% endblock %}
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav class="navbar">
+      <div class="nav-brand">
+        <a href="/"><i data-lucide="shopping-cart"></i> POS System</a>
+      </div>
+      <ul class="nav-links">
+        <li>
+          <a href="/" class="{% if request.url.path == '/' %}active{% endif %}"
+            ><i data-lucide="layout-dashboard"></i> Dashboard</a
+          >
+        </li>
+        <li>
+          <a
+            href="/pos"
+            class="{% if request.url.path == '/pos' %}active{% endif %}"
+            ><i data-lucide="calculator"></i> Kasir</a
+          >
+        </li>
+        <li>
+          <a
+            href="/products"
+            class="{% if '/products' in request.url.path %}active{% endif %}"
+            ><i data-lucide="package"></i> Produk</a
+          >
+        </li>
+        <li>
+          <a
+            href="/transactions"
+            class="{% if '/transactions' in request.url.path %}active{% endif %}"
+            ><i data-lucide="file-text"></i> Laporan</a
+          >
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Flash Messages -->
+    {% if error %}
+    <div class="alert alert-error">
+      <i data-lucide="alert-circle"></i> {{ error }}
+    </div>
+    {% endif %} {% if success %}
+    <div class="alert alert-success">
+      <i data-lucide="check-circle"></i> {{ success }}
+    </div>
+    {% endif %}
+
+    <!-- Main Content -->
+    <main class="container">{% block content %}{% endblock %}</main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>&copy; 2026 POS System - File-Based Architecture</p>
+    </footer>
+
+    <script>
+      lucide.createIcons();
+    </script>
+    {% block extra_js %}{% endblock %}
+  </body>
+</html>

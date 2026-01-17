@@ -1,0 +1,6 @@
+id|tanggal|items|total|kasir
+1|2026-01-17T23:21:10.758721|1:Indomie Goreng:2:7000;2:Aqua 600ml:1:4000|11000|admin
+2|2026-01-17T23:33:18.085678|1:Indomie Goreng:1:3500;2:Aqua 600ml:2:8000|11500|admin
+3|2026-01-17T23:33:56.536136|6:Coca Cola 330ml:1:6000|6000|admin
+4|2026-01-17T23:34:48.812576|3:Teh Botol Sosro:1:5000|5000|admin
+5|2026-01-18T01:59:52.857384|5:Mie Sedaap Goreng:1:3000;4:Roti Tawar Sari Roti:1:15000|18000|admin

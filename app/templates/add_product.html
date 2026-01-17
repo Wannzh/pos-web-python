@@ -1,0 +1,64 @@
+{% extends "base.html" %} {% block title %}Tambah Produk - POS System{% endblock
+%} {% block content %}
+<div class="form-page">
+  <div class="page-header">
+    <h1><i data-lucide="plus-circle"></i> Tambah Produk Baru</h1>
+    <a href="/products" class="btn btn-outline"
+      ><i data-lucide="arrow-left"></i> Kembali</a
+    >
+  </div>
+
+  <div class="form-container">
+    <form action="/products/add" method="POST" class="product-form">
+      <div class="form-group">
+        <label for="nama">Nama Produk <span class="required">*</span></label>
+        <input
+          type="text"
+          id="nama"
+          name="nama"
+          value="{{ nama if nama else '' }}"
+          placeholder="Contoh: Indomie Goreng"
+          required
+          maxlength="100"
+        />
+        <small>Maksimal 100 karakter</small>
+      </div>
+
+      <div class="form-group">
+        <label for="harga">Harga (Rp) <span class="required">*</span></label>
+        <input
+          type="number"
+          id="harga"
+          name="harga"
+          value="{{ harga if harga else '' }}"
+          placeholder="Contoh: 3500"
+          required
+          min="1"
+        />
+        <small>Harga dalam Rupiah (tanpa titik/koma)</small>
+      </div>
+
+      <div class="form-group">
+        <label for="stok">Stok Awal <span class="required">*</span></label>
+        <input
+          type="number"
+          id="stok"
+          name="stok"
+          value="{{ stok if stok else '0' }}"
+          placeholder="Contoh: 100"
+          required
+          min="0"
+        />
+        <small>Jumlah stok awal produk</small>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary btn-lg">
+          <i data-lucide="save"></i> Simpan Produk
+        </button>
+        <a href="/products" class="btn btn-outline btn-lg">Batal</a>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,78 @@
+{% extends "base.html" %} {% block title %}Laporan Transaksi - POS System{%
+endblock %} {% block content %}
+<div class="transactions-page">
+  <div class="page-header">
+    <h1><i data-lucide="clipboard-list"></i> Laporan Transaksi</h1>
+  </div>
+
+  <!-- Today Summary -->
+  <div class="summary-cards">
+    <div class="summary-card">
+      <div class="summary-icon"><i data-lucide="banknote"></i></div>
+      <div class="summary-content">
+        <h3>Pendapatan Hari Ini</h3>
+        <p class="summary-value">
+          Rp {{ "{:,.0f}".format(today_report.total_revenue) }}
+        </p>
+      </div>
+    </div>
+    <div class="summary-card">
+      <div class="summary-icon"><i data-lucide="receipt"></i></div>
+      <div class="summary-content">
+        <h3>Transaksi Hari Ini</h3>
+        <p class="summary-value">{{ today_report.total_transactions }}</p>
+      </div>
+    </div>
+    <div class="summary-card">
+      <div class="summary-icon"><i data-lucide="package"></i></div>
+      <div class="summary-content">
+        <h3>Item Terjual</h3>
+        <p class="summary-value">{{ today_report.items_sold }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Transactions Table -->
+  <div class="section">
+    <h2><i data-lucide="scroll-text"></i> Riwayat Transaksi</h2>
+    <div class="table-container">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Tanggal & Waktu</th>
+            <th>Items</th>
+            <th>Total</th>
+            <th>Kasir</th>
+            <th>Detail</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for trx in transactions %}
+          <tr>
+            <td>{{ trx.id }}</td>
+            <td>{{ trx.tanggal.strftime('%d/%m/%Y %H:%M') }}</td>
+            <td>
+              {% for item in trx.items %}
+              <span class="item-badge">{{ item.nama }} ({{ item.qty }})</span>
+              {% endfor %}
+            </td>
+            <td class="amount">Rp {{ "{:,.0f}".format(trx.total) }}</td>
+            <td>{{ trx.kasir }}</td>
+            <td>
+              <a href="/transactions/{{ trx.id }}" class="btn btn-sm">Detail</a>
+            </td>
+          </tr>
+          {% else %}
+          <tr>
+            <td colspan="6" class="empty-message">
+              Belum ada transaksi. <a href="/pos">Buat transaksi pertama</a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,76 @@
+{% extends "base.html" %} {% block title %}Detail Transaksi #{{ transaction.id
+}} - POS System{% endblock %} {% block content %}
+<div class="transaction-detail">
+  <div class="page-header">
+    <h1>
+      <i data-lucide="receipt"></i> Detail Transaksi #{{ transaction.id }}
+    </h1>
+    <a href="/transactions" class="btn btn-outline"
+      ><i data-lucide="arrow-left"></i> Kembali</a
+    >
+  </div>
+
+  <div class="receipt">
+    <div class="receipt-header">
+      <h2><i data-lucide="shopping-cart"></i> POS System</h2>
+      <p>Struk Transaksi</p>
+    </div>
+
+    <div class="receipt-info">
+      <div class="info-row">
+        <span>ID Transaksi:</span>
+        <span>{{ transaction.id }}</span>
+      </div>
+      <div class="info-row">
+        <span>Tanggal:</span>
+        <span>{{ transaction.tanggal.strftime('%d/%m/%Y') }}</span>
+      </div>
+      <div class="info-row">
+        <span>Waktu:</span>
+        <span>{{ transaction.tanggal.strftime('%H:%M:%S') }}</span>
+      </div>
+      <div class="info-row">
+        <span>Kasir:</span>
+        <span>{{ transaction.kasir }}</span>
+      </div>
+    </div>
+
+    <div class="receipt-divider"></div>
+
+    <div class="receipt-items">
+      <table class="receipt-table">
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Qty</th>
+            <th>Subtotal</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in transaction.items %}
+          <tr>
+            <td>{{ item.nama }}</td>
+            <td>{{ item.qty }}</td>
+            <td>Rp {{ "{:,.0f}".format(item.subtotal) }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="receipt-divider"></div>
+
+    <div class="receipt-total">
+      <span>TOTAL</span>
+      <span>Rp {{ "{:,.0f}".format(transaction.total) }}</span>
+    </div>
+
+    <div class="receipt-footer">
+      <p>Terima kasih atas kunjungan Anda!</p>
+      <p>
+        <i data-lucide="shopping-cart"></i> POS System - File-Based Architecture
+      </p>
+    </div>
+  </div>
+</div>
+{% endblock %}

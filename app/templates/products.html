@@ -1,0 +1,115 @@
+{% extends "base.html" %} {% block title %}Daftar Produk - POS System{% endblock
+%} {% block content %}
+<div class="products-page">
+  <div class="page-header">
+    <h1><i data-lucide="package"></i> Daftar Produk</h1>
+    <a href="/products/add" class="btn btn-primary">
+      <i data-lucide="plus"></i> Tambah Produk
+    </a>
+  </div>
+
+  <!-- Stats -->
+  <div class="mini-stats">
+    <span class="mini-stat">
+      <i data-lucide="package"></i> Total:
+      <strong>{{ total_products }}</strong> produk
+    </span>
+    {% if low_stock_count > 0 %}
+    <span class="mini-stat warning">
+      <i data-lucide="alert-triangle"></i> Stok Rendah:
+      <strong>{{ low_stock_count }}</strong>
+    </span>
+    {% endif %}
+  </div>
+
+  <!-- Search -->
+  <div class="search-box">
+    <input
+      type="text"
+      id="searchInput"
+      placeholder="Cari produk..."
+      onkeyup="filterProducts()"
+    />
+  </div>
+
+  <!-- Products Table -->
+  <div class="table-container">
+    <table class="table" id="productsTable">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nama Produk</th>
+          <th>Harga</th>
+          <th>Stok</th>
+          <th>Dibuat</th>
+          <th>Aksi</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for product in products %}
+        <tr class="{% if product.stok <= 10 %}warning-row{% endif %}">
+          <td>{{ product.id }}</td>
+          <td>{{ product.nama }}</td>
+          <td>Rp {{ "{:,.0f}".format(product.harga) }}</td>
+          <td>
+            {% if product.stok <= 10 %}
+            <span class="badge badge-warning">{{ product.stok }}</span>
+            {% elif product.stok <= 20 %}
+            <span class="badge badge-info">{{ product.stok }}</span>
+            {% else %}
+            <span class="badge badge-success">{{ product.stok }}</span>
+            {% endif %}
+          </td>
+          <td>{{ product.created_at.strftime('%d/%m/%Y') }}</td>
+          <td class="actions">
+            <a
+              href="/products/{{ product.id }}/edit"
+              class="btn btn-sm btn-secondary"
+              ><i data-lucide="edit"></i> Edit</a
+            >
+            <form
+              action="/products/{{ product.id }}/delete"
+              method="POST"
+              style="display: inline"
+              onsubmit="return confirm('Yakin hapus produk {{ product.nama }}?')"
+            >
+              <button type="submit" class="btn btn-sm btn-danger">
+                <i data-lucide="trash-2"></i> Hapus
+              </button>
+            </form>
+          </td>
+        </tr>
+        {% else %}
+        <tr>
+          <td colspan="6" class="empty-message">
+            Belum ada produk. <a href="/products/add">Tambah produk pertama</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{% endblock %} {% block extra_js %}
+<script>
+  function filterProducts() {
+    const input = document.getElementById("searchInput");
+    const filter = input.value.toLowerCase();
+    const table = document.getElementById("productsTable");
+    const rows = table.getElementsByTagName("tr");
+
+    for (let i = 1; i < rows.length; i++) {
+      const nameCell = rows[i].getElementsByTagName("td")[1];
+      if (nameCell) {
+        const name = nameCell.textContent || nameCell.innerText;
+        if (name.toLowerCase().indexOf(filter) > -1) {
+          rows[i].style.display = "";
+        } else {
+          rows[i].style.display = "none";
+        }
+      }
+    }
+  }
+</script>
+{% endblock %}

@@ -1,0 +1,7 @@
+id|nama|harga|stok|created_at
+1|Indomie Goreng|3500|97|2026-01-17T23:00:00
+2|Aqua 600ml|4000|47|2026-01-17T23:00:00
+3|Teh Botol Sosro|5000|29|2026-01-17T23:00:00
+4|Roti Tawar Sari Roti|15000|19|2026-01-17T23:00:00
+5|Mie Sedaap Goreng|3000|79|2026-01-17T23:00:00
+6|Coca Cola 330ml|6000|24|2026-01-17T23:32:12.210548
